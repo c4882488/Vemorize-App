@@ -5,6 +5,8 @@ npm install --save react-native-vector-icons
 
 https://github.com/oblador/react-native-vector-icons#android
 
+npm install @react-navigation/native
+npm install @react-navigation/native-stack
 
 npm install react-native-router-flux
 npm install react-native-screens
@@ -24,3 +26,5 @@ npm i react-native-modal
 #2F2F2F
 #4E4E4E
 #D0CFC5
+
+#374957

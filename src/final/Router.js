@@ -1,14 +1,15 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Text, ImageBackground, TouchableOpacity} from 'react-native';
 import {Router, Tabs, Stack, Scene} from 'react-native-router-flux';
 import WordClass from './WordClass';
 import WordList from './WordList';
 import ChallengeList from './ChallengeList';
 import WordFrom from './WordForm';
-import Badge from './images/fi-bs-badge.svg';
-import Chart from './images/fi-bs-chart-pie-alt.svg';
-import Plus from './images/fi-bs-plus.svg';
+import Badge from '../../assets/images/fi-bs-badge.svg';
+import Chart from '../../assets/images/fi-bs-chart-pie-alt.svg';
+import Plus from '../../assets/images/fi-bs-plus.svg';
 import colors from '../../assets/colors/colors';
+import CustomNarBar from './CustomNarBar';
 
 const BadgeIcon = props => {
   return (
@@ -23,9 +24,9 @@ const BadgeIcon = props => {
         padding: 15,
       }}>
       <Badge
-        width={20}
-        height={20}
-        fill={props.focused ? '#4E4E4E' : '#D0CFC5'}
+        width={props.focused ? 25 : 20}
+        width={props.focused ? 25 : 20}
+        fill={props.focused ? '#374957' : '#D0CFC5'}
       />
     </View>
   );
@@ -44,9 +45,9 @@ const ChartIcon = props => {
         padding: 15,
       }}>
       <Chart
-        width={20}
-        height={20}
-        fill={props.focused ? '#4E4E4E' : '#D0CFC5'}
+        width={props.focused ? 25 : 20}
+        width={props.focused ? 25 : 20}
+        fill={props.focused ? '#374957' : '#D0CFC5'}
       />
     </View>
   );
@@ -65,9 +66,9 @@ const PlusIcon = props => {
         padding: 15,
       }}>
       <Plus
-        width={20}
-        height={20}
-        fill={props.focused ? '#4E4E4E' : '#D0CFC5'}
+        width={props.focused ? 25 : 20}
+        width={props.focused ? 25 : 20}
+        fill={props.focused ? '#374957' : '#D0CFC5'}
       />
     </View>
   );
@@ -87,6 +88,7 @@ const Route = () => {
             component={WordClass}
             title="Single Word"
             initial
+            navBar={() => <CustomNarBar back="true" />}
           />
           <Scene key="WordList" component={WordList} title="待辦清單" back />
         </Stack>
