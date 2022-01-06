@@ -1,3 +1,3 @@
-import App from './src/final2';
+import App from './src/final';
 
 export default App;

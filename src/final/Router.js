@@ -1,9 +1,10 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Router, Tabs, Stack, Scene} from 'react-native-router-flux';
-import wordList from './wordList';
-import challengeList from './challengeList';
-import wordFrom from './wordForm';
+import WordClass from './WordClass';
+import WordList from './WordList';
+import ChallengeList from './ChallengeList';
+import WordFrom from './WordForm';
 import Badge from './images/fi-bs-badge.svg';
 import Chart from './images/fi-bs-chart-pie-alt.svg';
 import Plus from './images/fi-bs-plus.svg';
@@ -83,20 +84,21 @@ const Route = () => {
         <Stack key="root" title="singleWord" icon={ChartIcon}>
           <Scene
             key="singleWord"
-            component={wordList}
+            component={WordClass}
             title="Single Word"
             initial
           />
+          <Scene key="WordList" component={WordList} title="待辦清單" back />
         </Stack>
         <Scene
           key="wordFrom"
-          component={wordFrom}
+          component={WordFrom}
           title="Add word"
           icon={PlusIcon}
         />
         <Scene
           key="challengeList"
-          component={challengeList}
+          component={ChallengeList}
           icon={BadgeIcon}
           title="Challenge"
         />
