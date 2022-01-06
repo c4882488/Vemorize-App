@@ -6,6 +6,8 @@ const singleWord = [
     mean: '蘋果',
     color: 'red',
     status: true,
+    option:["蘋果", "香蕉", "梨子", "番茄"],
+    answer:"1",
   },
   {
     id: 2,
@@ -14,6 +16,8 @@ const singleWord = [
     mean: '香蕉',
     color: 'red',
     status: true,
+    option:["蘋果", "香蕉", "梨子", "番茄"],
+    answer:"2",
   },
   {
     id: 3,
@@ -22,6 +26,8 @@ const singleWord = [
     mean: '橘子',
     color: 'red',
     status: false,
+    option:["蘋果", "橘子", "梨子", "番茄"],
+    answer:"2",
   },
   {
     id: 4,
@@ -30,6 +36,8 @@ const singleWord = [
     mean: '梨子',
     color: 'red',
     status: false,
+    option:["蘋果", "橘子", "梨子", "番茄"],
+    answer:"3",
   },
   {
     id: 5,
@@ -38,6 +46,8 @@ const singleWord = [
     mean: '跑',
     color: 'red',
     status: false,
+    option:["跳", "走", "爬", "跑"],
+    answer:"4",
   },
 ];
 

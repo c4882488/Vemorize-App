@@ -52,8 +52,8 @@ class CustomNarBar extends React.Component {
 const styles = StyleSheet.create({
   container: {
     height: 70,
-    padding: 15,
-    paddingTop: 15,
+    padding: 18,
+    paddingTop: 18,
   },
   content: {
     flex: 1,
@@ -65,11 +65,11 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 0.8,
-    marginLeft: 5,
+    // marginLeft: 5,
     marginTop: -1,
   },
   text: {
-    fontSize: 24,
+    fontSize: 22,
     fontFamily: 'Poppins-Bold',
     color: '#374957',
     letterSpacing: 1,

@@ -1,27 +1,18 @@
 import React from 'react';
-import {
-  Animated,
-  Text,
-  View,
-  StyleSheet,
-  ImageBackground,
-  TouchableOpacity,
-} from 'react-native';
+import {Animated, Text, View, ScrollView, StyleSheet} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import singleWordData from './singleWordData';
 import StatusItem from './StatusItem';
-
-import Back from '../../assets/images/angle-left.svg';
-import EyeClose from '../../assets/images/fi-bs-eye-crossed.svg';
-import EyeOpen from '../../assets/images/fi-bs-eye.svg';
+import WordListPart from './WordListPart';
 
 class WordClass extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      words: singleWordData,
-      statusData: ['已背熟', '未背熟'],
+      words:singleWordData,
+      statusData:["已背熟", "未背熟"],
+      currentStatus:"全部",
     };
   }
   handlePress = id => {
@@ -58,10 +49,13 @@ class WordClass extends React.Component {
     });
   };
   ClassPress = name => {
-    Actions.WordList({
+    this.setState({
+      currentStatus:name
+    })
+    /*Actions.WordList({
       words: this.state.words,
       wordStatus: name,
-      idNumber: this.state.words.length,
+      idNumber:this.state.words.length,
       onPress: this.handlePress,
       handleAddTodo: this.handleAddTodo,
       handleUpdateTodo: this.handleUpdateTodo,
@@ -69,7 +63,7 @@ class WordClass extends React.Component {
       onRightSwipeable: this.renderRightActions,
       rightActionsPress: this.rightActionsPress,
       leftActionsPress: this.leftActionsPress,
-    });
+    });*/
   };
   renderLeftActions = (progress, dragX) => {
     const trans = dragX.interpolate({
@@ -127,9 +121,7 @@ class WordClass extends React.Component {
     );
   };
   rightActionsPress = id => {
-    const newWords = this.state.words.filter(
-      singleWord => singleWord.id !== id,
-    );
+    const newWords = this.state.words.filter(singleWord => singleWord.id !== id);
     this.setState({words: newWords});
     Actions.refresh({words: newWords});
   };
@@ -140,38 +132,31 @@ class WordClass extends React.Component {
       onRight: () => {
         this.toggleModal();
       },
-      // navBar: () => {
-      //   return (
-      //     <ImageBackground
-      //       source={require('../../assets/images/Rectangle3.jpg')}
-      //       style={{padding: 10}}>
-      //       <View>
-      //         <TouchableOpacity>
-      //           <Back width={30} height={30} fill="#374957" />
-      //         </TouchableOpacity>
-      //         <Text>Text</Text>
-      //         <TouchableOpacity>
-      //           <EyeClose width={25} height={25} fill="#374957" />
-      //         </TouchableOpacity>
-      //       </View>
-      //     </ImageBackground>
-      //   );
-      // },
-      title: this.props.TodoClass,
+      title: this.props.wordStatus,
     });
   }
-
   render() {
     const {statusData} = this.state;
     return (
-      <View style={styles.content}>
+      <ScrollView style={styles.content}>
         <Text style={styles.subtitle}>項目</Text>
         <StatusItem name="全部" onPress={this.ClassPress} />
         {statusData.map(status => {
-          return <StatusItem name={status} onPress={this.ClassPress} />;
+          return <StatusItem  name={status} onPress={this.ClassPress}/>;
         })}
-        <Text style={styles.line}></Text>
-      </View>
+        <Text style={styles.line} ></Text>
+        <WordListPart
+          words={this.state.words}
+          wordStatus={this.state.currentStatus}
+          idNumbe={this.state.words.length}
+          onPress={this.handlePress}
+          handleAddTodo={this.handleAddTodo}
+          handleUpdateTodo={this.handleUpdateTodo}
+          onLeftSwipeable={this.renderLeftActions}
+          onRightSwipeable={this.renderRightActions}
+          rightActionsPress={this.rightActionsPress}
+          leftActionsPress={this.leftActionsPress}/>
+      </ScrollView>
     );
   }
 }

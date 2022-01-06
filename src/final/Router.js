@@ -9,6 +9,7 @@ import Badge from '../../assets/images/fi-bs-badge.svg';
 import Chart from '../../assets/images/fi-bs-chart-pie-alt.svg';
 import Plus from '../../assets/images/fi-bs-plus.svg';
 import colors from '../../assets/colors/colors';
+import ChallengePage from './ChallengePage';
 import CustomNarBar from './CustomNarBar';
 
 const BadgeIcon = props => {
@@ -88,23 +89,31 @@ const Route = () => {
             component={WordClass}
             title="Single Word"
             initial
-            // navBar={() => (
-            //   <CustomNarBar backIcon={false} eyeIcon={true} title="Home" />
-            // )}
           />
           <Scene key="WordList" component={WordList} title="待辦清單" back />
+          <Scene
+            key="ChallengePage"
+            component={ChallengePage}
+            title="Challenge"
+          />
         </Stack>
         <Scene
           key="wordFrom"
           component={WordFrom}
           title="Add word"
           icon={PlusIcon}
+          navBar={() => (
+            <CustomNarBar backIcon={false} eyeIcon={null} title="Add word" />
+          )}
         />
         <Scene
           key="challengeList"
           component={ChallengeList}
           icon={BadgeIcon}
           title="Challenge"
+          navBar={() => (
+            <CustomNarBar backIcon={false} eyeIcon={null} title="Challenge" />
+          )}
         />
       </Tabs>
     </Router>
