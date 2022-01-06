@@ -4,6 +4,8 @@ npx react-native init SingleWord
 npm install --save react-native-vector-icons
 
 https://github.com/oblador/react-native-vector-icons#android
+react-native link react-native-vector-icons
+react-native link
 
 npm install @react-navigation/native
 npm install @react-navigation/native-stack

@@ -88,7 +88,9 @@ const Route = () => {
             component={WordClass}
             title="Single Word"
             initial
-            navBar={() => <CustomNarBar back="true" />}
+            // navBar={() => (
+            //   <CustomNarBar backIcon={false} eyeIcon={true} title="Home" />
+            // )}
           />
           <Scene key="WordList" component={WordList} title="待辦清單" back />
         </Stack>

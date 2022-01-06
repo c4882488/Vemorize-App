@@ -140,23 +140,23 @@ class WordClass extends React.Component {
       onRight: () => {
         this.toggleModal();
       },
-      navBar: () => {
-        return (
-          <ImageBackground
-            source={require('../../assets/images/Rectangle3.jpg')}
-            style={{padding: 10}}>
-            <View>
-              <TouchableOpacity>
-                <Back width={30} height={30} fill="#374957" />
-              </TouchableOpacity>
-              <Text>Text</Text>
-              <TouchableOpacity>
-                <EyeClose width={25} height={25} fill="#374957" />
-              </TouchableOpacity>
-            </View>
-          </ImageBackground>
-        );
-      },
+      // navBar: () => {
+      //   return (
+      //     <ImageBackground
+      //       source={require('../../assets/images/Rectangle3.jpg')}
+      //       style={{padding: 10}}>
+      //       <View>
+      //         <TouchableOpacity>
+      //           <Back width={30} height={30} fill="#374957" />
+      //         </TouchableOpacity>
+      //         <Text>Text</Text>
+      //         <TouchableOpacity>
+      //           <EyeClose width={25} height={25} fill="#374957" />
+      //         </TouchableOpacity>
+      //       </View>
+      //     </ImageBackground>
+      //   );
+      // },
       title: this.props.TodoClass,
     });
   }
