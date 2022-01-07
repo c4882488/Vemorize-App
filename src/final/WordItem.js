@@ -41,7 +41,7 @@ function WordItem(props) {
         onPress={() => onPress(id)}
         style={[style.items, status ? style.opti : '']}>
         <View style={style.imgContent}>
-          <Text style={[{color: color}, style.iconText]}>></Text>
+          <Text style={[{color: color}, style.iconText]}>{'>'}</Text>
         </View>
         <View style={style.content}>
           <Text

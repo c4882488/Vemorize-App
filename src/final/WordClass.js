@@ -40,6 +40,7 @@ class WordClass extends React.Component {
         ],
       },
       () => {
+        console.log('sss');
         //console.log(this.state.words);
         //Actions.singleWord({words: this.state.words, refresh: Math.random()});
         Actions.refresh({words: this.state.words, refresh: Math.random()});
