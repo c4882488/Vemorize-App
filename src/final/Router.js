@@ -108,7 +108,6 @@ const Route = () => {
           <Scene
             key="ChallengeList"
             component={ChallengeList}
-            icon={BadgeIcon}
             title="Challenge"
             navBar={() => (
               <CustomNarBar backIcon={false} eyeIcon={null} title="Challenge" />

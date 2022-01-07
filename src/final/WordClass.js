@@ -40,7 +40,7 @@ class WordClass extends React.Component {
         ],
       },
       () => {
-        console.log(this.state.words);
+        //console.log(this.state.words);
         //Actions.singleWord({words: this.state.words, refresh: Math.random()});
         Actions.refresh({words: this.state.words, refresh: Math.random()});
       },
@@ -171,7 +171,7 @@ class WordClass extends React.Component {
     //console.log(this.props.onAddWord);
     const {isModalVisible, singleWord, currentStatus} = this.state;
     return (
-      <View style="bg">
+      <View>
         {/* <Text style={styles.subtitle}>項目</Text> */}
         <View>
           <View style={styles.topButton}>
