@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Button} from 'react-native';
+import {View, Text, Button, TouchableOpacity} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import WordForm from './WordForm';
 import Modal from 'react-native-modal';
@@ -29,7 +29,7 @@ class ModalBotton extends React.Component {
         }}>
         <View
           style={{
-            height: '68%',
+            height: '65%',
             width: '100%',
             marginTop: 'auto',
             backgroundColor: colors.background,
@@ -38,14 +38,15 @@ class ModalBotton extends React.Component {
           <View>
             <View
               style={{
-                height: 35,
-                width: 35,
+                marginTop: -60,
+                height: 40,
+                width: 40,
                 alignSelf: 'flex-end',
                 marginRight: 15,
                 overflow: 'hidden',
                 borderRadius: 50,
               }}>
-              <Button
+              <TouchableOpacity
                 title="×"
                 onPress={() => {
                   toggleModal();
@@ -53,10 +54,19 @@ class ModalBotton extends React.Component {
                 }}
                 color={colors.yellow}
                 style={{
-                  backgroundColor: '#F8F8F8',
-                  color: colors.iconblack,
-                }}
-              />
+                  backgroundColor: colors.yellow,
+                }}>
+                <Text
+                  style={{
+                    color: colors.iconblack,
+                    fontSize: 16,
+                    padding: 6,
+                    fontFamily: 'Poppins-Medium',
+                    marginLeft: 9,
+                  }}>
+                  x
+                </Text>
+              </TouchableOpacity>
             </View>
             <WordForm
               toggleModal={toggleModal}
