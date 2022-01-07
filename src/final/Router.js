@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, ImageBackground, TouchableOpacity} from 'react-native';
-import {Router, Tabs, Stack, Scene} from 'react-native-router-flux';
+import {View} from 'react-native';
+import {Actions, Router, Tabs, Stack, Scene} from 'react-native-router-flux';
 import WordClass from './WordClass';
-import WordList from './WordList';
+// import WordList from './WordList';
 import ChallengeList from './ChallengeList';
 import WordFrom from './WordForm';
 import Badge from '../../assets/images/fi-bs-badge.svg';
@@ -83,38 +83,51 @@ const Route = () => {
         tabBarPosition="bottom"
         showLabel={false}
         tabStyle={{backgroundColor: colors.navBackground}}>
-        <Stack key="root" title="singleWord" icon={ChartIcon}>
+        <Stack key="root" icon={ChartIcon}>
           <Scene
             key="singleWord"
             component={WordClass}
-            title="Single Word"
             initial
-          />
-          <Scene key="WordList" component={WordList} title="待辦清單" back />
-          <Scene
-            key="ChallengePage"
-            component={ChallengePage}
-            title="Challenge"
+            cardStyle={{
+              backgroundColor: '#FFF7DC',
+            }}
           />
         </Stack>
         <Scene
           key="wordFrom"
-          component={WordFrom}
-          title="Add word"
+          component={WordClass}
           icon={PlusIcon}
           navBar={() => (
             <CustomNarBar backIcon={false} eyeIcon={null} title="Add word" />
           )}
+          onEnter={() => {
+            Actions.singleWord({onAddWord: true});
+          }}
         />
-        <Scene
-          key="challengeList"
-          component={ChallengeList}
-          icon={BadgeIcon}
-          title="Challenge"
-          navBar={() => (
-            <CustomNarBar backIcon={false} eyeIcon={null} title="Challenge" />
-          )}
-        />
+        <Stack key="Challenge" icon={BadgeIcon}>
+          <Scene
+            key="ChallengeList"
+            component={ChallengeList}
+            icon={BadgeIcon}
+            title="Challenge"
+            navBar={() => (
+              <CustomNarBar backIcon={false} eyeIcon={null} title="Challenge" />
+            )}
+            cardStyle={{
+              backgroundColor: '#FFF7DC',
+            }}
+          />
+          <Scene
+            key="ChallengePage"
+            component={ChallengePage}
+            navBar={() => (
+              <CustomNarBar backIcon={true} eyeIcon={null} title="Challenge" />
+            )}
+            cardStyle={{
+              backgroundColor: '#FFF7DC',
+            }}
+          />
+        </Stack>
       </Tabs>
     </Router>
   );

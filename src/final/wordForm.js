@@ -1,18 +1,27 @@
 import React from 'react';
-import {Text, View, TextInput, StyleSheet, Switch, Button, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  StyleSheet,
+  Switch,
+  Button,
+  ScrollView,
+} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import {Actions} from 'react-native-router-flux';
+import colors from '../../assets/colors/colors';
 
 class WordForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id:this.props.idNumber+1,
+      id: null,
       word: null,
       pos: 'n.',
       mean: null,
-      color:"red",
-      status:false,
+      color: 'red',
+      status: false,
     };
   }
   handleChangeStatus = (name, value) => {
@@ -21,42 +30,41 @@ class WordForm extends React.Component {
     });
   };
   handlePress = () => {
+    this.props.toggleModal();
     if (this.props.singleWord) {
       const {handleUpdateTodo, updateWordData} = this.props;
 
-      Actions.pop({refresh: Math.random()});
+      //Actions.pop({refresh: Math.random()});
       updateWordData(null);
 
       handleUpdateTodo(this.state);
     } else {
       const {handleAddTodo} = this.props;
 
-      Actions.pop({
-        refresh: Math.random(),
-      });
+      // Actions.pop({
+      //   refresh: Math.random(),
+      // });
       const addData = {
-        id: this.state.id,
         word: this.state.word,
         pos: this.state.pos,
         mean: this.state.mean,
         color: this.state.color,
         status: this.state.status,
       };
-      console.log(addData);
+      //console.log(addData);
       handleAddTodo(addData);
     }
 
     this.setState({
-      id:0,
+      id: 0,
       word: null,
       pos: 'n.',
       mean: null,
-      color:"red",
-      status:false,
+      color: 'red',
+      status: false,
     });
   };
   componentDidMount() {
-    
     const {singleWord} = this.props;
     if (singleWord) {
       this.setState({
@@ -71,12 +79,12 @@ class WordForm extends React.Component {
   }
   render() {
     const {singleWord} = this.props;
-    console.log(singleWord)
+    //console.log(singleWord);
     const {id, word, pos, mean, color, status} = this.state;
-    var idText = id.toString();
+    // var idText = id.toString();
     return (
       <ScrollView style={styles.container}>
-        <View style={styles.content}>
+        {/* <View style={styles.content}>
           <Text style={styles.titles}>編號</Text>
           <View style={styles.textPadding}>
             <TextInput
@@ -87,7 +95,7 @@ class WordForm extends React.Component {
               editable={false}
             />
           </View>
-        </View>
+        </View> */}
         <View style={styles.content}>
           <Text style={styles.titles}>英文</Text>
           <View style={styles.textPadding}>
@@ -143,8 +151,8 @@ class WordForm extends React.Component {
             name="status"
             value={status}
             onValueChange={val => this.handleChangeStatus('status', val)}
-            trackColor={{false: '#767577', true: '#81b0ff'}}
-            thumbColor={status ? '#767577' : '#81b0ff'}
+            trackColor={{false: '#767577', true: colors.yellow}}
+            thumbColor={status ? '#767577' : colors.yellow}
             style={styles.formSwitch}
           />
         </View>
@@ -152,7 +160,7 @@ class WordForm extends React.Component {
           <Button
             style={styles.buttons}
             title={singleWord ? 'Update Todo' : 'Add Todo'}
-            color="#81b0ff"
+            color={colors.yellow}
             onPress={this.handlePress}
           />
         </View>
@@ -180,7 +188,7 @@ const styles = StyleSheet.create({
   },
   pickerBorder: {
     marginTop: 10,
-    borderRadius: 50,
+    borderRadius: 15,
     overflow: 'hidden',
   },
   formPicker: {
@@ -216,7 +224,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingTop: 0,
     backgroundColor: '#fff',
-    borderRadius: 50,
+    borderRadius: 15,
     overflow: 'hidden',
   },
 });

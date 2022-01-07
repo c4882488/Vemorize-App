@@ -1,10 +1,15 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
+import colors from '../../assets/colors/colors';
 
 const styles = StyleSheet.create({
   content: {
-    flex: 0.9,
-    marginLeft: 13,
+    flex: 0.4,
+    marginLeft: 10,
+  },
+  mean: {
+    flex: 0.5,
+    marginTop: 7,
   },
   items: {
     margin: 10,
@@ -12,35 +17,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#fff',
     padding: 12,
+    // marginBottom: 10,
     paddingLeft: 20,
     paddingRight: 23,
-    borderRadius: 50,
+    borderRadius: 15,
     elevation: 3,
   },
   opti: {
-    opacity: 0.8,
+    opacity: 0.9,
   },
   itemTitleUncheck: {
-    fontSize: 14,
-    fontWeight: 'bold',
     marginBottom: 3,
     color: '#3f3f3f',
   },
   itemTitlecheck: {
-    fontSize: 14,
-    fontWeight: '400',
     marginBottom: 3,
     color: '#9f9f9f',
     textDecorationLine: 'line-through',
   },
   itemContent: {
     color: '#8f8f8f',
-    marginLeft: 10,
+    fontFamily: 'Poppins-Bold',
     fontSize: 12,
+    letterSpacing: 1.5,
   },
   itemClockcheck: {
     alignSelf: 'center',
-    color: '#9f9f9f',
+    color: colors.blackgray,
   },
   itemClockUncheck: {
     alignSelf: 'center',
@@ -69,6 +72,16 @@ const styles = StyleSheet.create({
   imgContent: {
     alignSelf: 'center',
     flex: 0.1,
+    marginLeft: 10,
+  },
+  iconText: {
+    fontFamily: 'Poppins-Black',
+    fontSize: 18,
+  },
+  words: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 17,
+    letterSpacing: 1,
   },
 });
 

@@ -3,16 +3,20 @@ import {Animated, Text, View, ScrollView, StyleSheet} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import singleWordData from './singleWordData';
 import StatusItem from './StatusItem';
-import WordListPart from './WordListPart';
+import WordList from './WordList';
+import ModalBotton from './ModalBotton';
+import CustomNarBar from './CustomNarBar';
 
 class WordClass extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      words:singleWordData,
-      statusData:["已背熟", "未背熟"],
-      currentStatus:"全部",
+      words: singleWordData,
+      currentStatus: '全部',
+      showWord: true,
+      singleWord: null,
+      isModalVisible: this.props.onAddWord ? true : false,
     };
   }
   handlePress = id => {
@@ -23,6 +27,8 @@ class WordClass extends React.Component {
     Actions.refresh({words: newWords});
   };
   handleAddTodo = singleWord => {
+    console.log(singleWord);
+    console.log(this.state.words);
     this.setState(
       {
         words: [
@@ -34,11 +40,11 @@ class WordClass extends React.Component {
         ],
       },
       () => {
-        console.log('handleAddTodo');
+        console.log(this.state.words);
+        //Actions.singleWord({words: this.state.words, refresh: Math.random()});
         Actions.refresh({words: this.state.words, refresh: Math.random()});
       },
     );
-    //這邊好像來是會比較卡 算惹
   };
   handleUpdateTodo = wordData => {
     const newWords = this.state.words.map(singleWord => {
@@ -50,20 +56,8 @@ class WordClass extends React.Component {
   };
   ClassPress = name => {
     this.setState({
-      currentStatus:name
-    })
-    /*Actions.WordList({
-      words: this.state.words,
-      wordStatus: name,
-      idNumber:this.state.words.length,
-      onPress: this.handlePress,
-      handleAddTodo: this.handleAddTodo,
-      handleUpdateTodo: this.handleUpdateTodo,
-      onLeftSwipeable: this.renderLeftActions,
-      onRightSwipeable: this.renderRightActions,
-      rightActionsPress: this.rightActionsPress,
-      leftActionsPress: this.leftActionsPress,
-    });*/
+      currentStatus: name,
+    });
   };
   renderLeftActions = (progress, dragX) => {
     const trans = dragX.interpolate({
@@ -75,7 +69,7 @@ class WordClass extends React.Component {
         style={{
           flex: 1,
           backgroundColor: '#4ba5f7',
-          borderRadius: 50,
+          borderRadius: 15,
           margin: 10,
           justifyContent: 'center',
         }}>
@@ -91,6 +85,7 @@ class WordClass extends React.Component {
     );
   };
   leftActionsPress = (word, toggleModal) => {
+    this.setState({singleWord: null});
     toggleModal();
     //Actions.TodoForm({todo: todo, handleUpdateTodo: this.handleUpdateTodo});
   };
@@ -104,7 +99,7 @@ class WordClass extends React.Component {
         style={{
           flex: 1,
           backgroundColor: '#ff5916',
-          borderRadius: 50,
+          borderRadius: 15,
           margin: 10,
           justifyContent: 'center',
           alignItems: 'flex-end',
@@ -121,46 +116,120 @@ class WordClass extends React.Component {
     );
   };
   rightActionsPress = id => {
-    const newWords = this.state.words.filter(singleWord => singleWord.id !== id);
+    const newWords = this.state.words.filter(
+      singleWord => singleWord.id !== id,
+    );
     this.setState({words: newWords});
     Actions.refresh({words: newWords});
   };
 
+  updateWordData = currentWord => {
+    this.setState({singleWord: currentWord}, () => {
+      this.toggleModal();
+    });
+  };
+
+  toggleModal = () => {
+    this.setState({isModalVisible: !this.state.isModalVisible});
+  };
+
+  handlewords = () => {
+    this.setState({showWord: !this.state.showWord});
+  };
   componentDidMount() {
     this.props.navigation.setParams({
-      rightTitle: '新增',
-      onRight: () => {
-        this.toggleModal();
+      navBar: e => {
+        return (
+          <CustomNarBar
+            backIcon={false}
+            eyeIcon={this.state.showWord}
+            handlewords={this.handlewords}
+            title="Words"
+          />
+        );
       },
-      title: this.props.wordStatus,
     });
   }
-  render() {
-    const {statusData} = this.state;
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.showWord !== this.state.showWord) {
+      this.props.navigation.setParams({
+        navBar: e => {
+          return (
+            <CustomNarBar
+              backIcon={false}
+              eyeIcon={this.state.showWord}
+              handlewords={this.handlewords}
+              title="Words"
+            />
+          );
+        },
+      });
+    }
+  }
+
+  render(props) {
+    //console.log(this.props.onAddWord);
+    const {isModalVisible, singleWord, currentStatus} = this.state;
     return (
-      <ScrollView style={styles.content}>
-        <Text style={styles.subtitle}>項目</Text>
-        <StatusItem name="全部" onPress={this.ClassPress} />
-        {statusData.map(status => {
-          return <StatusItem  name={status} onPress={this.ClassPress}/>;
-        })}
-        <Text style={styles.line} ></Text>
-        <WordListPart
-          words={this.state.words}
-          wordStatus={this.state.currentStatus}
-          idNumbe={this.state.words.length}
-          onPress={this.handlePress}
+      <View style="bg">
+        {/* <Text style={styles.subtitle}>項目</Text> */}
+        <View>
+          <View style={styles.topButton}>
+            <StatusItem
+              name="全部"
+              status={currentStatus === '全部' ? true : false}
+              onPress={this.ClassPress}
+            />
+            <StatusItem
+              name="已背熟"
+              status={currentStatus === '已背熟' ? true : false}
+              onPress={this.ClassPress}
+            />
+            <StatusItem
+              name="未背熟"
+              status={currentStatus === '未背熟' ? true : false}
+              onPress={this.ClassPress}
+            />
+          </View>
+        </View>
+
+        {/* <Text style={styles.line}></Text> */}
+        <ScrollView style={styles.content}>
+          <WordList
+            words={this.state.words}
+            wordStatus={this.state.currentStatus}
+            showWord={this.state.showWord}
+            onPress={this.handlePress}
+            handleAddTodo={this.handleAddTodo}
+            handleUpdateTodo={this.handleUpdateTodo}
+            onLeftSwipeable={this.renderLeftActions}
+            onRightSwipeable={this.renderRightActions}
+            rightActionsPress={this.rightActionsPress}
+            leftActionsPress={this.leftActionsPress}
+            toggleModal={this.toggleModal}
+            updateWordData={this.updateWordData}
+          />
+        </ScrollView>
+        <ModalBotton
+          isModalVisible={isModalVisible}
+          toggleModal={this.toggleModal}
           handleAddTodo={this.handleAddTodo}
           handleUpdateTodo={this.handleUpdateTodo}
-          onLeftSwipeable={this.renderLeftActions}
-          onRightSwipeable={this.renderRightActions}
-          rightActionsPress={this.rightActionsPress}
-          leftActionsPress={this.leftActionsPress}/>
-      </ScrollView>
+          updateWordData={this.updateWordData}
+          singleWord={singleWord}
+          idNumber={this.state.words.length}
+        />
+      </View>
     );
   }
 }
 const styles = StyleSheet.create({
+  topButton: {
+    flexDirection: 'row',
+    marginTop: 15,
+    marginLeft: 18,
+    marginRight: 18,
+  },
   subtitle: {
     color: '#000',
     marginTop: 35,
@@ -173,8 +242,10 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   content: {
-    padding: 10,
-    paddingTop: 0,
+    // padding: 10,
+    paddingTop: 20,
+    marginLeft: 18,
+    marginRight: 18,
   },
   line: {
     height: 1,

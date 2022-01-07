@@ -1,7 +1,9 @@
 import React from 'react';
 import {View, Button} from 'react-native';
+import {Actions} from 'react-native-router-flux';
 import WordForm from './WordForm';
 import Modal from 'react-native-modal';
+import colors from '../../assets/colors/colors';
 
 class ModalBotton extends React.Component {
   render() {
@@ -30,7 +32,7 @@ class ModalBotton extends React.Component {
             height: '68%',
             width: '100%',
             marginTop: 'auto',
-            backgroundColor: '#F8F8F8',
+            backgroundColor: colors.background,
             justifyContent: 'space-around',
           }}>
           <View>
@@ -47,11 +49,17 @@ class ModalBotton extends React.Component {
                 title="×"
                 onPress={() => {
                   toggleModal();
+                  //Actions.singleWord();
                 }}
-                style={{backgroundColor: '#F8F8F8'}}
+                color={colors.yellow}
+                style={{
+                  backgroundColor: '#F8F8F8',
+                  color: colors.iconblack,
+                }}
               />
             </View>
             <WordForm
+              toggleModal={toggleModal}
               handleAddTodo={handleAddTodo}
               handleUpdateTodo={handleUpdateTodo}
               updateWordData={updateWordData}

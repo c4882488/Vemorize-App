@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import {Actions} from 'react-native-router-flux';
 import Back from '../../assets/images/angle-left.svg';
 import EyeClose from '../../assets/images/fi-bs-eye-crossed.svg';
 import EyeOpen from '../../assets/images/fi-bs-eye.svg';
@@ -34,8 +35,11 @@ class CustomNarBar extends React.Component {
           </View>
           <View style={styles.back}>
             {eyeIcon !== null && (
-              <TouchableOpacity>
-                {eyeIcon === true ? (
+              <TouchableOpacity
+                onPress={() => {
+                  this.props.handlewords();
+                }}>
+                {eyeIcon === false ? (
                   <EyeOpen width={20} height={20} fill="#374957" />
                 ) : (
                   <EyeClose width={20} height={20} fill="#374957" />

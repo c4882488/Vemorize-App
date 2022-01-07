@@ -1,16 +1,21 @@
 import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import colors from '../../assets/colors/colors';
 
 class TypeItem extends React.Component {
   render() {
-    const {name, onPress} = this.props;
+    const {name, onPress, status} = this.props;
     return (
-      <TouchableOpacity style={styles.items} onPress={() => onPress(name)}>
-        <View style={styles.iconContent}>
+      <TouchableOpacity
+        style={[styles.items, status ? styles.buttons : styles.onButtons]}
+        onPress={() => onPress(name)}>
+        {/* <View style={styles.iconContent}>
           <Text style={styles.subtitle}>＞</Text>
-        </View>
+        </View> */}
         <View style={styles.content}>
-          <Text style={styles.text}>{name}</Text>
+          <Text style={[styles.text, status ? '' : {color: colors.blackgray}]}>
+            {name}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -19,24 +24,29 @@ class TypeItem extends React.Component {
 const styles = StyleSheet.create({
   text: {
     color: 'black',
+    fontFamily: 'Poppins-Regular',
+    letterSpacing: 6,
+    fontSize: 13,
   },
   items: {
-    margin: 10,
+    margin: 8,
     justifyContent: 'space-between',
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    padding: 20,
-    paddingLeft: 20,
-    paddingRight: 23,
+    flex: 1,
+    padding: 10,
     borderRadius: 50,
-    elevation: 3,
-  },
-  iconContent: {
-    flex: 0.1,
   },
   content: {
-    flex: 0.9,
+    alignSelf: 'center',
   },
-  subtitle: {},
+  buttons: {
+    backgroundColor: colors.yellow,
+    borderColor: colors.yellow,
+    borderWidth: 2,
+  },
+  onButtons: {
+    borderColor: colors.yellow,
+    backgroundColor: '#fff',
+    borderWidth: 2,
+  },
 });
 export default TypeItem;
