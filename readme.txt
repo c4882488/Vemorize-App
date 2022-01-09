@@ -21,8 +21,6 @@ yarn add --dev react-native-svg-transformer
 
 npm install @react-native-picker/picker --save
 
-npm install --save react-native-gesture-handler
-
 npm i react-native-modal
 
 #2F2F2F

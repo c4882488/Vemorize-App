@@ -31,25 +31,25 @@ class WordListPart extends React.Component {
     }
     return (
       <View style={styles.body}>
-        {/* <ScrollView style={styles.content}> */}
-        <Text style={styles.subSuggest}>左右滑動來修改/刪除事項</Text>
-        <View style={styles.todoItme}>
-          {totalWords.map(singleWord => (
-            <WordItem
-              key={singleWord.id}
-              singleWord={singleWord}
-              onPress={onPress}
-              onLeftSwipeable={onLeftSwipeable}
-              onRightSwipeable={onRightSwipeable}
-              rightActionsPress={rightActionsPress}
-              leftActionsPress={leftActionsPress}
-              toggleModal={toggleModal}
-              updateWordData={updateWordData}
-              showWord={showWord}
-            />
-          ))}
-        </View>
-        {/* </ScrollView> */}
+        <ScrollView style={styles.content}>
+          <Text style={styles.subSuggest}>左右滑動來修改/刪除事項</Text>
+          <View style={styles.todoItme}>
+            {totalWords.map(singleWord => (
+              <WordItem
+                key={singleWord.id}
+                singleWord={singleWord}
+                onPress={onPress}
+                onLeftSwipeable={onLeftSwipeable}
+                onRightSwipeable={onRightSwipeable}
+                rightActionsPress={rightActionsPress}
+                leftActionsPress={leftActionsPress}
+                toggleModal={toggleModal}
+                updateWordData={updateWordData}
+                showWord={showWord}
+              />
+            ))}
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
   content: {
     // padding: 10,
     // paddingTop: 0,
+    //paddingBottom: 10,
   },
 });
 export default WordListPart;

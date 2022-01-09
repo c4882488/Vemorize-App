@@ -16,17 +16,23 @@ class WordClass extends React.Component {
       currentStatus: '全部',
       showWord: true,
       singleWord: null,
-      isModalVisible: this.props.onAddWord ? true : false,
+      isModalVisible: false,
     };
   }
+  //修改帶值
+  updateSetWordData = () => {
+    this.setState({singleWord: null}, () => {
+      // this.toggleModal();
+    });
+  };
   handlePress = id => {
     const newWords = this.state.words.map(word => {
       return word.id === id ? {...word, status: !word.status} : word;
     });
     this.setState({words: newWords});
-    Actions.refresh({words: newWords});
+    Actions.refresh({words: newWords, onAddWord: false});
   };
-  handleAddTodo = singleWord => {
+  handleAddTodo = (singleWord, toggleModal) => {
     console.log(singleWord);
     console.log(this.state.words);
     this.setState(
@@ -43,15 +49,21 @@ class WordClass extends React.Component {
         //console.log('sss');
         //console.log(this.state.words);
         //Actions.singleWord({words: this.state.words, refresh: Math.random()});
-        Actions.refresh({words: this.state.words, refresh: Math.random()});
+        toggleModal();
+        Actions.refresh({
+          words: this.state.words,
+          onAddWord: false,
+          refresh: Math.random(),
+        });
       },
     );
   };
-  handleUpdateTodo = wordData => {
+  handleUpdateTodo = (wordData, toggleModal) => {
     const newWords = this.state.words.map(singleWord => {
       return singleWord.id === wordData.id ? wordData : singleWord;
     });
     this.setState({words: newWords}, () => {
+      toggleModal();
       Actions.refresh({words: this.state.words, refresh: Math.random()});
     });
   };
@@ -152,6 +164,24 @@ class WordClass extends React.Component {
     });
   }
   componentDidUpdate(prevProps, prevState) {
+    // console.log('prevState ' + prevState.isModalVisible);
+    // console.log('this ' + this.state.isModalVisible);
+
+    if (
+      this.props.onAddWord !== this.state.isModalVisible &&
+      this.props.onAddWord
+    ) {
+      console.log('ss ' + this.props.onAddWord);
+      this.props.onAddWord ? this.toggleModal() : null;
+      Actions.refresh({
+        words: this.state.words,
+        onAddWord: false,
+        refresh: Math.random(),
+      });
+      //this.setState({isModalVisible: this.state.isModalVisible});
+    }
+    if (prevState.isModalVisible !== this.state.isModalVisible) {
+    }
     if (prevState.showWord !== this.state.showWord) {
       this.props.navigation.setParams({
         navBar: e => {
@@ -170,6 +200,7 @@ class WordClass extends React.Component {
 
   render(props) {
     //console.log(this.props.onAddWord);
+
     const {isModalVisible, singleWord, currentStatus} = this.state;
     return (
       <View>
@@ -195,7 +226,7 @@ class WordClass extends React.Component {
         </View>
 
         {/* <Text style={styles.line}></Text> */}
-        <ScrollView style={styles.content}>
+        <View style={styles.content}>
           <WordList
             words={this.state.words}
             wordStatus={this.state.currentStatus}
@@ -210,7 +241,7 @@ class WordClass extends React.Component {
             toggleModal={this.toggleModal}
             updateWordData={this.updateWordData}
           />
-        </ScrollView>
+        </View>
         <ModalBotton
           isModalVisible={isModalVisible}
           toggleModal={this.toggleModal}
@@ -218,6 +249,7 @@ class WordClass extends React.Component {
           handleUpdateTodo={this.handleUpdateTodo}
           updateWordData={this.updateWordData}
           singleWord={singleWord}
+          updateSetWordData={this.updateSetWordData}
           idNumber={this.state.words.length}
         />
       </View>

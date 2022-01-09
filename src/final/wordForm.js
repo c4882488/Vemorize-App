@@ -7,6 +7,7 @@ import {
   Switch,
   Button,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import {Actions} from 'react-native-router-flux';
@@ -30,14 +31,16 @@ class WordForm extends React.Component {
     });
   };
   handlePress = () => {
-    this.props.toggleModal();
+    console.log('press');
+    //this.props.toggleModal();
+    this.props.updateSetWordData();
     if (this.props.singleWord) {
       const {handleUpdateTodo, updateWordData} = this.props;
 
       //Actions.pop({refresh: Math.random()});
       updateWordData(null);
 
-      handleUpdateTodo(this.state);
+      handleUpdateTodo(this.state, this.props.toggleModal);
     } else {
       const {handleAddTodo} = this.props;
 
@@ -52,7 +55,7 @@ class WordForm extends React.Component {
         status: this.state.status,
       };
       //console.log(addData);
-      handleAddTodo(addData);
+      handleAddTodo(addData, this.props.toggleModal);
     }
 
     this.setState({
@@ -133,7 +136,7 @@ class WordForm extends React.Component {
           </View>
         </View>
         <View style={styles.content}>
-          <Text style={styles.titles}>詞性</Text>
+          <Text style={styles.titles}>分類</Text>
           <View style={styles.pickerBorder}>
             <Picker
               name="color"
@@ -142,6 +145,10 @@ class WordForm extends React.Component {
               style={styles.formPicker}>
               <Picker.Item label="紅色" value="red" />
               <Picker.Item label="黃色" value="yellow" />
+              <Picker.Item label="藍色" value="blue" />
+              <Picker.Item label="綠色" value="green" />
+              <Picker.Item label="紫色" value="purple" />
+              <Picker.Item label="灰色" value="gray" />
             </Picker>
           </View>
         </View>
@@ -157,12 +164,16 @@ class WordForm extends React.Component {
           />
         </View>
         <View style={[styles.content, styles.button]}>
-          <Button
+          {/* <Button
             style={styles.buttons}
-            title={singleWord ? 'Update Todo' : 'Add Todo'}
             color={colors.yellow}
             onPress={this.handlePress}
-          />
+          /> */}
+          <TouchableOpacity onPress={this.handlePress}>
+            <Text style={styles.buttonText}>
+              {singleWord ? 'Update Word' : 'Add Word'}
+            </Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.content}>
           <Text style={styles.titles}></Text>
@@ -174,17 +185,21 @@ class WordForm extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    paddingTop: 0,
+    padding: 15,
+    paddingTop: 13,
+    marginLeft: 10,
+    marginRight: 10,
   },
   titles: {
-    color: 'black',
+    color: colors.iconblack,
     fontWeight: '500',
-    fontSize: 16,
+    fontSize: 14,
     marginLeft: 15,
+    letterSpacing: 1,
+    fontFamily: 'Poppins-Regular',
   },
   content: {
-    marginTop: 20,
+    marginTop: 15,
   },
   pickerBorder: {
     marginTop: 10,
@@ -215,10 +230,18 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 50,
     overflow: 'hidden',
+    alignItems: 'center',
+    flex: 1,
+    padding: 10,
+    backgroundColor: colors.yellow,
   },
   buttons: {
+    alignItems: 'center',
     padding: 15,
     margin: 10,
+  },
+  buttonText: {
+    fontFamily: 'Poppins-Light',
   },
   textPadding: {
     marginTop: 10,

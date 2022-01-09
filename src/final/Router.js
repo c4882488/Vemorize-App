@@ -101,7 +101,9 @@ const Route = () => {
             <CustomNarBar backIcon={false} eyeIcon={null} title="Add word" />
           )}
           onEnter={() => {
-            Actions.singleWord({onAddWord: true});
+            //console.log('onEnter');
+            //Actions.singleWord({onAddWord: true});
+            Actions.jump('singleWord', {onAddWord: true});
           }}
         />
         <Stack key="Challenge" icon={BadgeIcon}>

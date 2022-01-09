@@ -15,6 +15,7 @@ class ModalBotton extends React.Component {
       idNumber,
       handleUpdateTodo,
       updateWordData,
+      updateSetWordData,
     } = this.props;
     return (
       <Modal
@@ -50,6 +51,8 @@ class ModalBotton extends React.Component {
                 title="×"
                 onPress={() => {
                   toggleModal();
+                  updateSetWordData();
+                  Actions.refresh({onAddWord: false, refresh: Math.random()});
                   //Actions.singleWord();
                 }}
                 color={colors.yellow}
@@ -74,6 +77,7 @@ class ModalBotton extends React.Component {
               handleUpdateTodo={handleUpdateTodo}
               updateWordData={updateWordData}
               singleWord={singleWord}
+              updateSetWordData={updateSetWordData}
               idNumber={idNumber}
             />
           </View>

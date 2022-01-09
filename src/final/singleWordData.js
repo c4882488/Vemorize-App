@@ -44,7 +44,7 @@ const singleWord = [
     word: 'run',
     pos: 'v.',
     mean: '跑步',
-    color: 'red',
+    color: 'purple',
     status: false,
     option: ['跳躍', '走路', '爬行', '跑步'],
     answer: '4',
