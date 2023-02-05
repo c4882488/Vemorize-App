@@ -56,6 +56,7 @@ class WordListPart extends React.Component {
 }
 const styles = StyleSheet.create({
   body: {
+    paddingBottom: 160,
     // backgroundColor: '#f7f7f7',
   },
   back: {
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
   content: {
     // padding: 10,
     // paddingTop: 0,
-    //paddingBottom: 10,
+    // paddingBottom: 150,
   },
 });
 export default WordListPart;
