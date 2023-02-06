@@ -34,4 +34,4 @@ npm run android
 
 ## Example
 
-[download Apk](https://github.com/c4882488/Vemorize-App/blob/main/apk/app-release.apk)
+[download Apk](https://github.com/c4882488/Vemorize-App/raw/main/apk/app-release.apk)
