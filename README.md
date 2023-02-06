@@ -27,11 +27,11 @@ npm install
 ```
 
 ```
-npx expo run:android
+npm run 
 ```
 
 ---
 
 ## Example
 
-[download Apk]()
+[download Apk](https://github.com/c4882488/Vemorize-App/blob/main/apk/app-release.apk)
